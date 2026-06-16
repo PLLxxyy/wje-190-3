@@ -1,4 +1,4 @@
-import type { FurnitureDef, RoomType, StylePreset, StyleColors } from './types';
+import type { FurnitureDef, RoomType, StylePreset, StyleColors, RoomPreset } from './types';
 
 export const ROOM_CONFIGS: Record<RoomType, { label: string; size: { w: number; d: number; h: number } }> = {
   living:   { label: '客厅', size: { w: 8, d: 6, h: 3 } },
@@ -92,3 +92,132 @@ export const STYLE_PRESETS: Record<StylePreset, StyleColors> = {
 export function getFurnitureDef(defId: string): FurnitureDef | undefined {
   return FURNITURE_DEFS.find(f => f.id === defId);
 }
+
+export const ROOM_PRESETS: Record<RoomType, RoomPreset[]> = {
+  living: [
+    {
+      id: 'living-classic',
+      name: '经典会客',
+      description: '三人沙发+茶几+电视的经典组合',
+      thumbnail: '🛋️',
+      furniture: [
+        { defId: 'sofa-3seat',  position: [0, 0, 2], rotation: 180 },
+        { defId: 'sofa-1seat',  position: [-2.5, 0, 1.5], rotation: 90 },
+        { defId: 'sofa-1seat',  position: [2.5, 0, 1.5], rotation: -90 },
+        { defId: 'table-coffee', position: [0, 0, 0.5], rotation: 0 },
+        { defId: 'cabinet-tv',  position: [0, 0, -2.5], rotation: 0 },
+        { defId: 'tv-screen',   position: [0, 0.65, -2.5], rotation: 0 },
+        { defId: 'rug',         position: [0, 0, 0.5], rotation: 0 },
+        { defId: 'plant',       position: [-3.5, 0, -2.2], rotation: 0 },
+      ],
+    },
+    {
+      id: 'living-modern',
+      name: '现代简约',
+      description: 'L型沙发+落地灯的休闲布局',
+      thumbnail: '🏠',
+      furniture: [
+        { defId: 'sofa-3seat',  position: [0, 0, 2], rotation: 180 },
+        { defId: 'sofa-long',   position: [2.6, 0, 0.8], rotation: -90 },
+        { defId: 'table-coffee', position: [-0.2, 0, 0.5], rotation: 0 },
+        { defId: 'cabinet-tv',  position: [0, 0, -2.5], rotation: 0 },
+        { defId: 'tv-screen',   position: [0, 0.65, -2.5], rotation: 0 },
+        { defId: 'lamp-floor',  position: [-3.2, 0, 1.8], rotation: 0 },
+        { defId: 'rug',         position: [0, 0, 0.5], rotation: 0 },
+      ],
+    },
+    {
+      id: 'living-dining',
+      name: '客餐一体',
+      description: '客厅兼餐厅的多功能布局',
+      thumbnail: '🍽️',
+      furniture: [
+        { defId: 'sofa-3seat',  position: [0, 0, 0.5], rotation: 180 },
+        { defId: 'table-coffee', position: [0, 0, -0.8], rotation: 0 },
+        { defId: 'cabinet-tv',  position: [0, 0, -2.5], rotation: 0 },
+        { defId: 'tv-screen',   position: [0, 0.65, -2.5], rotation: 0 },
+        { defId: 'table-dining', position: [0, 0, 2.2], rotation: 0 },
+        { defId: 'chair',       position: [-0.8, 0, 2.6], rotation: 0 },
+        { defId: 'chair',       position: [0.8, 0, 2.6], rotation: 0 },
+        { defId: 'chair',       position: [-0.8, 0, 1.8], rotation: 180 },
+        { defId: 'chair',       position: [0.8, 0, 1.8], rotation: 180 },
+      ],
+    },
+  ],
+  bedroom: [
+    {
+      id: 'bedroom-standard',
+      name: '标准卧室',
+      description: '双人床+衣柜+床头柜的标准配置',
+      thumbnail: '🛏️',
+      furniture: [
+        { defId: 'bed-double',  position: [0, 0, 1.2], rotation: 0 },
+        { defId: 'cabinet-wardrobe', position: [0, 0, -1.8], rotation: 0 },
+        { defId: 'lamp-table',  position: [-1.3, 0.5, 0.6], rotation: 0 },
+        { defId: 'lamp-table',  position: [1.3, 0.5, 0.6], rotation: 0 },
+        { defId: 'rug',         position: [0, 0, 1.2], rotation: 0 },
+      ],
+    },
+    {
+      id: 'bedroom-study',
+      name: '卧室兼书房',
+      description: '单人床+书桌+书架的学习型布局',
+      thumbnail: '📚',
+      furniture: [
+        { defId: 'bed-single',  position: [-1.5, 0, 1], rotation: 0 },
+        { defId: 'table-desk',  position: [1.2, 0, 1.5], rotation: -90 },
+        { defId: 'cabinet-shelf', position: [1.8, 0, -1.5], rotation: 0 },
+        { defId: 'cabinet-wardrobe', position: [-1.5, 0, -1.5], rotation: 0 },
+        { defId: 'lamp-table',  position: [1.8, 0.75, 1.5], rotation: 0 },
+        { defId: 'plant',       position: [-0.5, 0, -1.8], rotation: 0 },
+      ],
+    },
+  ],
+  kitchen: [
+    {
+      id: 'kitchen-basic',
+      name: '基础厨房',
+      description: '料理台+冰箱的基础配置',
+      thumbnail: '🍳',
+      furniture: [
+        { defId: 'table-kitchen', position: [-1.2, 0, 0], rotation: 90 },
+        { defId: 'fridge',        position: [1.3, 0, -1.3], rotation: 0 },
+        { defId: 'table-dining',  position: [0.8, 0, 1], rotation: 0 },
+        { defId: 'chair',         position: [0.8, 0, 1.5], rotation: 180 },
+      ],
+    },
+    {
+      id: 'kitchen-laundry',
+      name: '厨卫一体',
+      description: '厨房加洗衣机的综合布局',
+      thumbnail: '🧺',
+      furniture: [
+        { defId: 'table-kitchen', position: [-1.2, 0, 0.5], rotation: 90 },
+        { defId: 'fridge',        position: [-1.2, 0, -1.3], rotation: 90 },
+        { defId: 'washer',        position: [1.2, 0, -1.2], rotation: 0 },
+      ],
+    },
+  ],
+  bathroom: [
+    {
+      id: 'bathroom-full',
+      name: '完整卫浴',
+      description: '浴缸+浴室柜的完整配置',
+      thumbnail: '🛁',
+      furniture: [
+        { defId: 'bathtub',         position: [0, 0, -0.8], rotation: 0 },
+        { defId: 'cabinet-bathroom', position: [-0.8, 0, 0.8], rotation: 0 },
+      ],
+    },
+    {
+      id: 'bathroom-compact',
+      name: '紧凑卫浴',
+      description: '浴室柜+洗衣机的紧凑布局',
+      thumbnail: '🚿',
+      furniture: [
+        { defId: 'cabinet-bathroom', position: [0, 0, -0.8], rotation: 0 },
+        { defId: 'washer',           position: [0, 0, 0.8], rotation: 0 },
+      ],
+    },
+  ],
+};

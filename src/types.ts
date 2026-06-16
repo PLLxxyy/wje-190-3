@@ -48,6 +48,20 @@ export interface DesignScheme {
   }>;
 }
 
+export interface FurniturePresetItem {
+  defId: string;
+  position: [number, number, number];
+  rotation: number;
+}
+
+export interface RoomPreset {
+  id: string;
+  name: string;
+  description: string;
+  thumbnail: string;
+  furniture: FurniturePresetItem[];
+}
+
 export interface StyleColors {
   name: string;
   wall: string;
@@ -55,3 +69,4 @@ export interface StyleColors {
   accent: string;
   furniture: Record<string, string>;
 }
+

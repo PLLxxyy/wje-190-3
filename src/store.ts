@@ -1,6 +1,6 @@
 import { create } from 'zustand';
-import type { RoomType, StylePreset, PlacedFurniture, DesignScheme } from './types';
-import { STYLE_PRESETS } from './data';
+import type { RoomType, StylePreset, PlacedFurniture, DesignScheme, FurniturePresetItem, MaterialType } from './types';
+import { STYLE_PRESETS, getFurnitureDef } from './data';
 
 interface AppState {
   // Room
@@ -16,10 +16,12 @@ interface AppState {
   setCameraView: (v: 'perspective' | 'top') => void;
 
   // Furniture in each room
-  roomFurniture: Record<RoomType, PlacedFurniture[]>;
+  roomFurniture: Record<RoomType, { furniture: PlacedFurniture[] }>;
   addFurniture: (room: RoomType, item: PlacedFurniture) => void;
   updateFurniture: (room: RoomType, instanceId: string, changes: Partial<PlacedFurniture>) => void;
   removeFurniture: (room: RoomType, instanceId: string) => void;
+  clearRoomFurniture: (room: RoomType) => void;
+  applyPreset: (room: RoomType, presetItems: FurniturePresetItem[], replace?: boolean) => void;
 
   // Selection
   selectedId: string | null;
@@ -111,6 +113,40 @@ export const useStore = create<AppState>((set, get) => ({
     },
     selectedId: state.selectedId === instanceId ? null : state.selectedId,
   })),
+
+  clearRoomFurniture: (room) => set((state) => ({
+    roomFurniture: {
+      ...state.roomFurniture,
+      [room]: { furniture: [] },
+    },
+    selectedId: state.roomFurniture[room].furniture.find(f => f.instanceId === state.selectedId) ? null : state.selectedId,
+  })),
+
+  applyPreset: (room, presetItems, replace = true) => {
+    const state = get();
+    const preset = STYLE_PRESETS[state.currentStyle];
+    const placed: PlacedFurniture[] = presetItems.map(item => {
+      const def = getFurnitureDef(item.defId);
+      const color = def ? (preset.furniture[item.defId] || def.defaultColor) : '#888888';
+      return {
+        instanceId: Date.now().toString(36) + Math.random().toString(36).slice(2, 6),
+        defId: item.defId,
+        position: item.position,
+        rotation: item.rotation,
+        color,
+        material: 'wood' as MaterialType,
+      };
+    });
+    set((s) => ({
+      roomFurniture: {
+        ...s.roomFurniture,
+        [room]: {
+          furniture: replace ? placed : [...s.roomFurniture[room].furniture, ...placed],
+        },
+      },
+      selectedId: null,
+    }));
+  },
 
   selectedId: null,
   setSelectedId: (id) => set({ selectedId: id }),

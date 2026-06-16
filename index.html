@@ -43,6 +43,22 @@
       .furniture-name { font-size: 13px; color: #d0d0e8; font-weight: 500; }
       .furniture-size { font-size: 10px; color: #6a6a8a; margin-top: 2px; }
 
+      .divider { height: 1px; background: #2a2a4a; margin: 8px 14px; }
+
+      .presets-section { padding: 0 0 4px; }
+      .presets-section .category-title { display: flex; align-items: center; justify-content: space-between; }
+      .clear-btn { padding: 3px 10px; border: 1px solid #e53935; border-radius: 4px; background: transparent; color: #e53935; cursor: pointer; font-size: 11px; transition: all 0.15s; }
+      .clear-btn:hover { background: #e53935; color: #fff; }
+      .presets-grid { display: flex; flex-direction: column; gap: 6px; padding: 4px 14px 8px; }
+      .preset-card { display: flex; align-items: center; gap: 10px; padding: 10px; border: 1px solid #2a2a4a; border-radius: 8px; background: #1a2545; cursor: pointer; transition: all 0.2s; }
+      .preset-card:hover { border-color: #7ec8e3; background: #1f2b4d; transform: translateY(-1px); box-shadow: 0 2px 8px rgba(126,200,227,0.15); }
+      .preset-card:active { transform: translateY(0); }
+      .preset-thumbnail { width: 40px; height: 40px; border-radius: 8px; background: linear-gradient(135deg, #2a3a6a 0%, #1a2545 100%); display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; }
+      .preset-info { display: flex; flex-direction: column; flex: 1; min-width: 0; }
+      .preset-name { font-size: 13px; color: #d0d0e8; font-weight: 600; }
+      .preset-desc { font-size: 11px; color: #8080a0; margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+      .preset-count { font-size: 10px; color: #7ec8e3; margin-top: 4px; font-weight: 500; }
+
       /* ===== 3D画布 ===== */
       .canvas-container { flex: 1; position: relative; }
       .canvas-container canvas { display: block; }
